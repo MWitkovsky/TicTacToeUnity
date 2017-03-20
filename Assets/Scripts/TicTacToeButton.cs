@@ -14,38 +14,41 @@ public class TicTacToeButton : MonoBehaviour {
     //We learn about button events here
     public void SetTile(bool isPlayer)
     {
-        if (!isTaken)
+        if (gameManager.IsGameActive())
         {
-            if (isPlayer && gameManager.IsPlayerTurn())
+            if (!isTaken)
             {
-                if (player.isX)
+                if (isPlayer && gameManager.IsPlayerTurn())
                 {
-                    text.text = "X";
-                    isX = true;
-                }
-                else
-                {
-                    text.text = "O";
-                    isX = false;
-                }
+                    if (player.isX)
+                    {
+                        text.text = "X";
+                        isX = true;
+                    }
+                    else
+                    {
+                        text.text = "O";
+                        isX = false;
+                    }
 
-                gameManager.SetPlayerTurn(false);
-            }
-            else
-            {
-                if (player.isX)
-                {
-                    text.text = "O";
-                    isX = true;
+                    gameManager.SetPlayerTurn(false);
                 }
                 else
                 {
-                    text.text = "X";
-                    isX = false;
+                    if (player.isX)
+                    {
+                        text.text = "O";
+                        isX = false;
+                    }
+                    else
+                    {
+                        text.text = "X";
+                        isX = true;
+                    }
                 }
+                isTaken = true;
+                gameManager.CheckWinCondition();
             }
-            isTaken = true;
-            gameManager.CheckWinCondition();
         }
     }
 
@@ -53,5 +56,10 @@ public class TicTacToeButton : MonoBehaviour {
     public bool IsTaken()
     {
         return isTaken;
+    }
+
+    public bool IsX()
+    {
+        return isX;
     }
 }

@@ -5,15 +5,15 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
     public bool isX;
 
-    private int score;
+    private static int score;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void IncrementScore()
+    {
+        score++;
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
 }
