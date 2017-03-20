@@ -4,33 +4,54 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TicTacToeButton : MonoBehaviour {
-
+    public GameManager gameManager;
     public PlayerManager player;
     public Text text;
 
-    private Button button;
     private bool isTaken;
+    private bool isX;
 
-    private void Start()
-    {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(SetTile);
-    }
-
-	private void SetTile()
+    //We learn about button events here
+    public void SetTile(bool isPlayer)
     {
         if (!isTaken)
         {
-            if (player.isX)
+            if (isPlayer && gameManager.IsPlayerTurn())
             {
-                text.text = "X";
+                if (player.isX)
+                {
+                    text.text = "X";
+                    isX = true;
+                }
+                else
+                {
+                    text.text = "O";
+                    isX = false;
+                }
+
+                gameManager.SetPlayerTurn(false);
             }
             else
             {
-                text.text = "O";
+                if (player.isX)
+                {
+                    text.text = "O";
+                    isX = true;
+                }
+                else
+                {
+                    text.text = "X";
+                    isX = false;
+                }
             }
-
             isTaken = true;
+            gameManager.CheckWinCondition();
         }
+    }
+
+    //We learn about getters here
+    public bool IsTaken()
+    {
+        return isTaken;
     }
 }

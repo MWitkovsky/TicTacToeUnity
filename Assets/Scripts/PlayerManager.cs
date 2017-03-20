@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
-    
     public bool isX;
 
     private int score;
